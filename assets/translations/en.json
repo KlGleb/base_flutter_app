@@ -1,0 +1,50 @@
+{
+  "errors": {
+    "general": {
+      "connection": "Connection error occurred",
+      "unknown": "Unknown error occurred"
+    },
+    "auth": {
+      "wrongCredentials": "Wrong credentials",
+      "emailAlreadySignedUp": "This email has already been registered",
+      "emailNotFound": "This email is not registered"
+    }
+  },
+  "validation": {
+    "invalidEmail": "Invalid email",
+    "invalidPassword": "Invalid password",
+    "emptyEmail": "Please fill out the email",
+    "emptyPassword": "Please fill out the password",
+    "passwordsAreNotSame": "The passwords don't match"
+  },
+  "login": {
+    "title": "Sign in",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "loginButton": "Login",
+    "forgotPasswordLabel": "Forgot your password?",
+    "resetPasswordButton": "Reset password",
+    "signUpLabel": "No account?",
+    "signUpButton": "Sign up"
+  },
+  "signUp": {
+    "title": "Sign up",
+    "repeatPasswordLabel": "Repeat password",
+    "signUpButton": "Sign up",
+    "loginButtonLabel": "Already have an account?",
+    "loginButton": "Login"
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "emailFieldLabel": "Enter your email",
+    "resetPasswordButton": "Send password reset link",
+    "sendLinkSuccess": "We have sent a password reset link to your email. Please check your e-mail and follow the link from the e-mail.",
+    "backButton": "Back"
+  },
+  "resetPasswordCode": {
+    "title": "Reset password",
+    "passwordLabel": "Enter a new password",
+    "repeatPasswordLabel": "Repeat the password",
+    "resetPasswordButton": "Reset password"
+  }
+}
