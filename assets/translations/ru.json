@@ -1,0 +1,51 @@
+{
+  "errors": {
+    "general": {
+      "connection": "Произошла ошибка соединения",
+      "unknown": "Произошла неизвестная ошибка"
+    },
+    "auth": {
+      "wrongCredentials": "Неверные учетные данные",
+      "emailAlreadySignedUp": "Этот адрес электронной почты уже зарегистрирован",
+      "emailNotFound": "Этот адрес электронной почты не зарегистрирован",
+      "wrongCode": "Неверный код"
+    }
+  },
+  "validation": {
+    "invalidEmail": "Неверный адрес электронной почты",
+    "invalidPassword": "Неверный пароль",
+    "emptyEmail": "Пожалуйста, укажите адрес электронной почты",
+    "emptyPassword": "Пожалуйста, укажите пароль",
+    "passwordsAreNotSame": "Пароли не совпадают"
+  },
+  "login": {
+    "title": "Войти",
+    "emailLabel": "Электронная почта",
+    "passwordLabel": "Пароль",
+    "loginButton": "Войти",
+    "forgotPasswordLabel": "Забыли пароль?",
+    "resetPasswordButton": "Восстановить",
+    "signUpLabel": "Нет аккаунта?",
+    "signUpButton": "Зарегистрироваться"
+  },
+  "signUp": {
+    "title": "Регистрация",
+    "repeatPasswordLabel": "Повторите пароль",
+    "signUpButton": "Зарегистрироваться",
+    "loginButtonLabel": "Уже есть аккаунт?",
+    "loginButton": "Войти"
+  },
+  "resetPassword": {
+    "title": "Сброс пароля",
+    "emailFieldLabel": "Введите свой адрес электронной почты",
+    "resetPasswordButton": "Отправить ссылку для сброса пароля",
+    "sendLinkSuccess": "Мы отправили ссылку для сброса пароля на вашу электронную почту. Пожалуйста, проверьте свою почту и перейдите по ссылке из письма.",
+    "backButton": "Назад"
+  },
+  "resetPasswordCode": {
+    "title": "Сброс пароля",
+    "passwordLabel": "Введите новый пароль",
+    "repeatPasswordLabel": "Повторите пароль",
+    "resetPasswordButton": "Сбросить пароль"
+  }
+}

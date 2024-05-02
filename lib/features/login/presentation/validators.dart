@@ -21,3 +21,10 @@ FormFieldValidator<String> passwordValidator(BuildContext context) => (value) {
       }
       return null;
     };
+
+FormFieldValidator<String> codeValidator(BuildContext context) => (value) {
+      if (value == null || value.isEmpty) {
+        return 'Пожалуйста, введите код из письма';
+      }
+      return null;
+    };

@@ -11,5 +11,6 @@ class SignUpState with _$SignUpState {
     String? userName,
     String? password,
     String? repeatPassword,
+    @Default(false) bool showPasswords,
   }) = _SignUpState;
 }

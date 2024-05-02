@@ -21,10 +21,9 @@ class SaveRepeatPassword extends SignUpEvent {
 
   SaveRepeatPassword(this.password);
 }
+
+class TogglePasswordVisibility extends SignUpEvent {}
 /*
-
-class LoggedIn extends SignUpEvent {}
-
 class LoggedOut extends SignUpEvent {}
 
 class LoggedInError extends SignUpEvent {}

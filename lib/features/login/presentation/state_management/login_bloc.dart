@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:reviewmagic_flutter/features/error/failure_user_message.dart';
 import 'package:reviewmagic_flutter/features/error/failures.dart';
-import 'package:reviewmagic_flutter/features/login/data/repositories/login_repository.dart';
+import 'package:reviewmagic_flutter/features/login/domain/repositories/auth_repository.dart';
 import 'package:reviewmagic_flutter/features/login/presentation/state_management/login_events.dart';
 import 'package:reviewmagic_flutter/features/login/presentation/state_management/login_state.dart';
 
@@ -12,6 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Login>(_loginReducer);
     on<SaveUserName>(_enterUserNameReducer);
     on<SavePassword>(_enterPasswordNameReducer);
+    on<TogglePasswordVisibility>(_togglePasswordVisibility);
   }
 
   final AuthRepository _repository;
@@ -31,4 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _enterPasswordNameReducer(SavePassword event, Emitter<LoginState> emit) =>
       emit(state.copyWith(password: event.password));
+
+  void _togglePasswordVisibility(TogglePasswordVisibility event, Emitter<LoginState> emit) =>
+      emit(state.copyWith(showPassword: !state.showPassword));
 }

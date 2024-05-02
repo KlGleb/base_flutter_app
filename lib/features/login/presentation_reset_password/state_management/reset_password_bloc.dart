@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:reviewmagic_flutter/features/error/failure_user_message.dart';
 import 'package:reviewmagic_flutter/features/error/failures.dart';
-import 'package:reviewmagic_flutter/features/login/data/repositories/login_repository.dart';
+import 'package:reviewmagic_flutter/features/login/domain/repositories/auth_repository.dart';
 import 'package:reviewmagic_flutter/features/login/presentation_reset_password/state_management/reset_password_events.dart';
 import 'package:reviewmagic_flutter/features/login/presentation_reset_password/state_management/reset_password_state.dart';
 

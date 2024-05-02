@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
         child: BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             final bloc = context.read<LoginBloc>();
-            final captionStyle = Theme.of(context).textTheme.bodyMedium;
+            final captionStyle = Theme.of(context).textTheme.labelLarge;
             final linksStyle = captionStyle?.copyWith(color: Theme.of(context).colorScheme.primary);
 
             return Padding(
@@ -37,41 +37,48 @@ class LoginForm extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text(
+                      LocaleKeys.login_title.tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 44),
                     TextFormField(
                       initialValue: kDebugMode ? 'info@gleb.at' : null,
                       decoration: decoration.copyWith(labelText: LocaleKeys.login_emailLabel.tr()),
                       onSaved: (newValue) => bloc.add(SaveUserName(newValue!)),
                       validator: emailValidator(context),
                       textInputAction: TextInputAction.next,
-                      autofillHints: const [AutofillHints.email],
+                      autofillHints: const [AutofillHints.email, AutofillHints.username],
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
                       initialValue: kDebugMode ? '123' : null,
-                      decoration: decoration.copyWith(labelText: LocaleKeys.login_passwordLabel.tr()),
-                      obscureText: true,
+                      decoration: decoration.copyWith(
+                        labelText: LocaleKeys.login_passwordLabel.tr(),
+                        suffixIcon: IconButton(
+                          onPressed: () => bloc.add(TogglePasswordVisibility()),
+                          icon: Icon(state.showPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined),
+                        ),
+                      ),
+                      obscureText: !state.showPassword,
                       validator: passwordValidator(context),
                       onSaved: (newValue) => bloc.add(SavePassword(newValue!)),
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.send,
                       autofillHints: const [AutofillHints.password],
+                      keyboardType: TextInputType.visiblePassword,
+                      onFieldSubmitted: (value) => _submitForm(context),
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 8.0),
                     ErrorField(message: state.errorMessage),
-                    const SizedBox(height: 32.0),
+                    const SizedBox(height: 8.0),
                     ElevatedButton(
-                      onPressed: state.inProgress
-                          ? null
-                          : () {
-                              if (_formKey.currentState!.validate()) {
-                                FocusScope.of(context).unfocus();
-                                _formKey.currentState!.save();
-                                bloc.add(Login());
-                              }
-                            },
+                      onPressed: state.inProgress ? null : () => _submitForm(context),
                       child: Text(LocaleKeys.login_loginButton.tr()),
                     ),
                     const SizedBox(height: 32),
                     _SignUpLabel(captionStyle: captionStyle, linksStyle: linksStyle),
+                    const SizedBox(height: 16),
                     _ResetPasswordLabel(captionStyle: captionStyle, linksStyle: linksStyle),
                   ],
                 ),
@@ -81,6 +88,15 @@ class LoginForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _submitForm(BuildContext context) {
+    final bloc = BlocProvider.of<LoginBloc>(context);
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      _formKey.currentState!.save();
+      bloc.add(Login());
+    }
   }
 }
 

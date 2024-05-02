@@ -1,3 +1,4 @@
+import 'package:checkbox_formfield/checkbox_list_tile_formfield.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -17,6 +18,7 @@ class SignUpForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: kDebugMode ? '123' : null);
   final _repeatPasswordController = TextEditingController(text: kDebugMode ? '123' : null);
+  final _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class SignUpForm extends StatelessWidget {
         child: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
             final bloc = context.read<SignUpBloc>();
-            final captionStyle = Theme.of(context).textTheme.bodyMedium;
+            final captionStyle = Theme.of(context).textTheme.labelLarge;
             final linksStyle = captionStyle?.copyWith(color: Theme.of(context).colorScheme.primary);
 
             return Padding(
@@ -39,36 +41,95 @@ class SignUpForm extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text(
+                      LocaleKeys.signUp_title.tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 44),
                     TextFormField(
                       initialValue: kDebugMode ? 'info@gleb.at' : null,
                       decoration: decoration.copyWith(labelText: LocaleKeys.login_emailLabel.tr()),
                       onSaved: (newValue) => bloc.add(SaveUserName(newValue!)),
                       validator: emailValidator(context),
                       textInputAction: TextInputAction.next,
-                      autofillHints: const [AutofillHints.email],
+                      autofillHints: const [AutofillHints.email, AutofillHints.newUsername],
+                      keyboardType: TextInputType.emailAddress,
+                      autofocus: true,
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
                       controller: _passwordController,
-                      decoration: decoration.copyWith(labelText: LocaleKeys.login_passwordLabel.tr()),
-                      obscureText: true,
                       validator: _passwordValidator(context),
                       onSaved: (newValue) => bloc.add(SavePassword(newValue!)),
-                      textInputAction: TextInputAction.done,
-                      autofillHints: const [AutofillHints.password],
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.newPassword],
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: decoration.copyWith(
+                        labelText: LocaleKeys.login_passwordLabel.tr(),
+                        suffixIcon: IconButton(
+                          onPressed: () => bloc.add(TogglePasswordVisibility()),
+                          icon: Icon(state.showPasswords ? Icons.visibility_off_outlined : Icons.visibility_outlined),
+                        ),
+                      ),
+                      obscureText: !state.showPasswords,
+                      autocorrect: false,
+                      onFieldSubmitted: (value) => _focusNode.requestFocus(),
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
+                      focusNode: _focusNode,
                       controller: _repeatPasswordController,
                       decoration: decoration.copyWith(labelText: LocaleKeys.signUp_repeatPasswordLabel.tr()),
-                      obscureText: true,
+                      obscureText: !state.showPasswords,
                       validator: _passwordValidator(context),
                       textInputAction: TextInputAction.done,
-                      autofillHints: const [AutofillHints.password],
+                      autofillHints: const [AutofillHints.newPassword],
+                      autocorrect: false,
+                      keyboardType: TextInputType.visiblePassword,
                     ),
                     const SizedBox(height: 16.0),
+                    CheckboxListTileFormField(
+                      context: context,
+                      // value: true,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+                      initialValue: false,
+                      validator: (value) {
+                        if (!(value ?? false)) return 'Необходимо ваше согласие с условиями';
+                        return null;
+                      },
+                      title: RichText(
+                        text: TextSpan(
+                          style: captionStyle,
+                          children: [
+                            const TextSpan(text: 'Регистрируясь, я соглашаюсь с '),
+                            TextSpan(
+                              text: 'политикой конфеденциальности ',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // Routemaster.of(context).replace('/login');
+                                },
+                              style: linksStyle,
+                              mouseCursor: MaterialStateMouseCursor.clickable,
+                            ),
+                            const TextSpan(text: ' и '),
+                            TextSpan(
+                              text: ' лицензионным соглашением',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // Routemaster.of(context).replace('/login');
+                                },
+                              style: linksStyle,
+                              mouseCursor: MaterialStateMouseCursor.clickable,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
                     ErrorField(message: state.errorMessage),
-                    const SizedBox(height: 32.0),
+                    const SizedBox(height: 8.0),
                     ElevatedButton(
                       onPressed: state.inProgress
                           ? null

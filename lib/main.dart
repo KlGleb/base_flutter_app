@@ -6,6 +6,7 @@ import 'package:reviewmagic_flutter/dependencies.dart';
 import 'package:reviewmagic_flutter/features/auth/state_management/auth_bloc.dart';
 import 'package:reviewmagic_flutter/generated/codegen_loader.g.dart';
 import 'package:reviewmagic_flutter/router.dart';
+import 'package:reviewmagic_flutter/theme.dart';
 import 'package:routemaster/routemaster.dart';
 
 void main() async {
@@ -22,9 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('ru'),
       useOnlyLangCode: true,
-      supportedLocales: const [Locale('en')],
+      supportedLocales: const [Locale('ru')],
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       child: BlocProvider(
@@ -40,16 +41,16 @@ class MyApp extends StatelessWidget {
             }
 
             logger.w(authState);
+            const themes = MaterialTheme();
+
             return MaterialApp.router(
               routerDelegate: RoutemasterDelegate(
                 routesBuilder: (context) => authState == AuthState.loggedIn ? routes : unauthorisedRoutes,
               ),
               routeInformationParser: const RoutemasterParser(),
               title: 'Flutter Demo',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-              ),
+              theme: themes.light(),
+              darkTheme: themes.dark(),
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: context.locale,

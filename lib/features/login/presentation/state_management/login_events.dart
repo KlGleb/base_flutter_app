@@ -13,3 +13,5 @@ class SavePassword extends LoginEvent {
 
   SavePassword(this.password);
 }
+
+class TogglePasswordVisibility extends LoginEvent {}

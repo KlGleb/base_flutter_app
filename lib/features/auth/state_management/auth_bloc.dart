@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:reviewmagic_flutter/features/login/data/repositories/login_repository.dart';
+import 'package:reviewmagic_flutter/features/login/domain/repositories/auth_repository.dart';
 
 @LazySingleton()
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -42,9 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onLogout(Logout event, Emitter<AuthState> emit) => _repository.logOut();
 }
 
-sealed
-
-class AuthEvent {}
+sealed class AuthEvent {}
 
 class Logout extends AuthEvent {}
 

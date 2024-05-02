@@ -10,5 +10,6 @@ class LoginState with _$LoginState {
     String? errorMessage,
     String? userName,
     String? password,
+    @Default(false) bool showPassword,
   }) = _LoginState;
 }

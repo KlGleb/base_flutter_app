@@ -13,3 +13,11 @@ class SaveRepeatPassword extends ResetPasswordCodeEvent {
 
   SaveRepeatPassword(this.password);
 }
+
+class SaveCode extends ResetPasswordCodeEvent {
+  final String code;
+
+  SaveCode(this.code);
+}
+
+class TogglePasswordVisibility extends ResetPasswordCodeEvent {}

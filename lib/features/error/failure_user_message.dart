@@ -15,6 +15,8 @@ extension FailureUserMessage on Failure {
         localeKey = LocaleKeys.errors_general_connection;
       case FailureCode.emailNotRegistered:
         localeKey = LocaleKeys.errors_auth_emailNotFound;
+      case FailureCode.wrongCode:
+        localeKey = LocaleKeys.errors_auth_wrongCode;
       default:
         localeKey = LocaleKeys.errors_general_unknown;
     }

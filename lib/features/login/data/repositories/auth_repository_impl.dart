@@ -4,7 +4,7 @@ import 'package:reviewmagic_flutter/features/auth/state_management/auth_bloc.dar
 import 'package:reviewmagic_flutter/features/login/data/ds/login_ds.dart';
 import 'package:reviewmagic_flutter/features/login/data/dtos/login_dto.dart';
 import 'package:reviewmagic_flutter/features/login/data/entities/reset_password_entity.dart';
-import 'package:reviewmagic_flutter/features/login/data/repositories/login_repository.dart';
+import 'package:reviewmagic_flutter/features/login/domain/repositories/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 @LazySingleton(as: AuthRepository)
