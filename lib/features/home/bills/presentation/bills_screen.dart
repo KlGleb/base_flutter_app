@@ -6,6 +6,7 @@ import 'package:reviewmagic_flutter/dependencies.dart';
 import 'package:reviewmagic_flutter/features/home/bills/domain/bill_model.dart';
 import 'package:reviewmagic_flutter/features/home/bills/presentation/state_management/bills_bloc.dart';
 import 'package:reviewmagic_flutter/features/home/bills/presentation/state_management/bills_state.dart';
+import 'package:routemaster/routemaster.dart';
 
 final _formatCurrency = NumberFormat.simpleCurrency(
   locale: 'RU',
@@ -89,7 +90,9 @@ class BillsPage extends StatelessWidget {
                             padding: const EdgeInsets.all(28),
                             child: Center(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Routemaster.of(context).push('bill');
+                                },
                                 child: Text('Оплатить ${_formatCurrency.format(state.overAll?.amount ?? 0)} '
                                     'полностью'),
                               ),
@@ -144,7 +147,13 @@ class _BillCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(onPressed: bill == null ? null : () {}, child: const Text('Оплатить')),
+                  ElevatedButton(
+                      onPressed: bill == null
+                          ? null
+                          : () {
+                              Routemaster.of(context).push('bill');
+                            },
+                      child: const Text('Оплатить')),
                 ],
               ),
             ],
