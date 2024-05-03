@@ -4,7 +4,7 @@ import 'package:reviewmagic_flutter/features/home/bills/data/dtos/bill_dto.dart'
 @Injectable()
 class BillsDataSource {
   Future<Iterable<BillDto>> getBills() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(milliseconds: 500));
     return List.generate(
       15,
       (index) => BillDto(

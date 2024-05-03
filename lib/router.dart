@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reviewmagic_flutter/features/home/bills/presentation/bills_screen.dart';
 import 'package:reviewmagic_flutter/features/home/home/presentation/home_page.dart';
 import 'package:reviewmagic_flutter/features/home/home_screen.dart';
+import 'package:reviewmagic_flutter/features/home/settings/presentation/settings_page.dart';
 import 'package:reviewmagic_flutter/features/login/presentation/login_mobile_screen.dart';
 import 'package:reviewmagic_flutter/features/login/presentation_reset_password_code/reset_password_code_mobile_screen.dart';
 import 'package:reviewmagic_flutter/features/login/presentation_sign_up/sign_up_mobile_screen.dart';
@@ -16,7 +17,7 @@ final routes = RouteMap(
         ),
     '/home': (_) => const MaterialPage(child: HomePage()),
     '/bills': (_) => const MaterialPage(child: BillsPage()),
-    '/settings': (_) => const MaterialPage(child: BillsPage()),
+    '/settings': (_) => const MaterialPage(child: SettingsPage()),
   },
 );
 

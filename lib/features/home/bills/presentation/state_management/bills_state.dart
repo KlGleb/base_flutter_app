@@ -9,7 +9,7 @@ class BillsState with _$BillsState {
   const factory BillsState({
     @Default([]) List<BillModel> bills,
     String? errorMessage,
-    @Default(false) bool busy,
+    @Default(true) bool busy,
     BillModel? overAll,
   }) = _BillsState;
 }

@@ -9,6 +9,6 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default([]) List<DeviceModel> devices,
     String? errorMessage,
-    @Default(false) bool busy,
+    @Default(true) bool busy,
   }) = _HomeState;
 }
