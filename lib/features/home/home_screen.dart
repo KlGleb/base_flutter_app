@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reviewmagic_flutter/features/auth/state_management/auth_bloc.dart';
+import 'package:routemaster/routemaster.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    final pageState = IndexedPage.of(context);
+
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => context.read<AuthBloc>().add(Logout()),
-            icon: const Icon(Icons.logout_outlined),
-          ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: SafeArea(
+        child: PageStackNavigator(
+          key: ValueKey(pageState.index),
+          stack: pageState.stacks[pageState.index],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Главная'),
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money_outlined), label: 'Счета'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Настройки'),
         ],
+        currentIndex: pageState.index,
+        onTap: (index) {
+          setState(() {
+            pageState.index = index;
+          });
+        },
       ),
     );
   }

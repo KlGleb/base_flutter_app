@@ -70,7 +70,7 @@ class ResetPasswordForm extends StatelessWidget {
                               bloc.add(ResetPassword());
                             }
                           },
-                    child: Text('Далее'),
+                    child: const Text('Далее'),
                   ),
                 ],
               ),

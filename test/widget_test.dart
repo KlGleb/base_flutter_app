@@ -1,3 +1,4 @@
+/*
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
@@ -12,6 +13,7 @@ void main() {
   test('test', () async {
     final dio = Dio();
     final res = await dio.get('http://0.0.0.0:8080');
-    print(res.statusCode);
+    // print(res.statusCode);
   });
 }
+*/
