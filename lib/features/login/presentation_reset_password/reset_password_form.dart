@@ -25,7 +25,7 @@ class ResetPasswordForm extends StatelessWidget {
         builder: (context, state) {
           final bloc = context.read<ResetPasswordBloc>();
           if (state.success) {
-            return ResetPasswordCodeForm();
+            return ResetPasswordCodeForm(email: bloc.state.email!);
           }
 
           return Padding(

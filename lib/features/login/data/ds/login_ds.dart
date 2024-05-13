@@ -1,27 +1,32 @@
-import 'package:dio/dio.dart';
+import 'package:graphql/client.dart';
 import 'package:injectable/injectable.dart';
-import 'package:retrofit/retrofit.dart';
-import 'package:reviewmagic_flutter/features/login/data/dtos/login_dto.dart';
-import 'package:reviewmagic_flutter/features/login/data/entities/login_entity.dart';
-import 'package:reviewmagic_flutter/features/login/data/entities/reset_password_entity.dart';
+import 'package:reviewmagic_flutter/core/data/data_source_mixin.dart';
 
-part 'login_ds.g.dart';
+import 'auth.graphql.dart';
 
-@RestApi()
-@LazySingleton()
-abstract class LoginDataSource {
-  @factoryMethod
-  factory LoginDataSource(Dio dio) = _LoginDataSource;
+@Injectable()
+class LoginDataSource with DataSource {
+  final GraphQLClient _client;
 
-  @POST('/auth/login')
-  Future<LoginEntity> login(@Body() LoginDto loginDto);
+  LoginDataSource(this._client);
 
-  @POST('/auth/register')
-  Future<LoginEntity> register(@Body() LoginDto loginDto);
+  Future<Query$LogIn> login(Variables$Query$LogIn vars) => executeQuery(
+        queryBuilder: _client.query$LogIn(Options$Query$LogIn(variables: vars)),
+        fromJson: Query$LogIn.fromJson,
+      );
 
-  @POST('/auth/reset')
-  Future<bool> sendCodeToEmail(@Body() String email);
+  Future<Query$SignUp> register(Variables$Query$SignUp vars) => executeQuery(
+        queryBuilder: _client.query$SignUp(Options$Query$SignUp(variables: vars)),
+        fromJson: Query$SignUp.fromJson,
+      );
 
-  @PUT('/auth/reset')
-  Future<LoginEntity> resetPasswordByCode(@Body() ResetPasswordEntity entity);
+  Future<Query$SendResetPasswordCode> sendCodeToEmail(Variables$Query$SendResetPasswordCode vars) => executeQuery(
+        queryBuilder: _client.query$SendResetPasswordCode(Options$Query$SendResetPasswordCode(variables: vars)),
+        fromJson: Query$SendResetPasswordCode.fromJson,
+      );
+
+  Future<Mutation$ResetPassword> resetPasswordByCode(Variables$Mutation$ResetPassword vars) => executeQuery(
+        queryBuilder: _client.mutate$ResetPassword(Options$Mutation$ResetPassword(variables: vars)),
+        fromJson: Mutation$ResetPassword.fromJson,
+      );
 }

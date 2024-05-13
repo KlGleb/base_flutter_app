@@ -6,6 +6,7 @@ part 'reset_password_code_state.freezed.dart';
 @freezed
 class ResetPasswordCodeState with _$ResetPasswordCodeState {
   const factory ResetPasswordCodeState({
+    required String email,
     String? code,
     String? password,
     String? repeatPassword,

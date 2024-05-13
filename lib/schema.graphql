@@ -1,0 +1,25 @@
+#
+type UserVo {
+    email: String!
+    id: String!
+}
+
+# The Short scalar type represents a signed 16-bit numeric non-fractional value
+scalar Short
+
+# The Long scalar type represents a signed 64-bit numeric non-fractional value
+scalar Long
+
+# Query object
+type Query {
+    users: [UserVo!]!
+    currentUser: UserVo!
+    auth(email: String!, password: String!): String!
+    signUp(email: String!, password: String!): String!
+    sendResetPasswordCode(email: String!): Boolean!
+}
+
+# Mutation object
+type Mutation {
+    auth(email: String!, newPassword: String!, code: String!): String!
+}

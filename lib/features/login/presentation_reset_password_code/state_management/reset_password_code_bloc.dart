@@ -9,7 +9,7 @@ import 'package:reviewmagic_flutter/features/login/presentation_reset_password_c
 import 'package:reviewmagic_flutter/features/login/presentation_reset_password_code/state_management/reset_password_code_state.dart';
 
 class ResetPasswordCodeBloc extends Bloc<ResetPasswordCodeEvent, ResetPasswordCodeState> {
-  ResetPasswordCodeBloc(this._repository) : super(const ResetPasswordCodeState()) {
+  ResetPasswordCodeBloc(this._repository, String email) : super(ResetPasswordCodeState(email: email)) {
     on<ResetPassword>(_onResetPasswordCode);
     on<SavePassword>(_onSavePassword);
     on<SaveRepeatPassword>(_onSaveRepeatPassword);
@@ -23,7 +23,7 @@ class ResetPasswordCodeBloc extends Bloc<ResetPasswordCodeEvent, ResetPasswordCo
     emit(state.copyWith(inProgress: true, errorMessage: null));
 
     try {
-      await _repository.sendCode(state.code!, state.password!);
+      await _repository.sendCode(state.email, state.code!, state.password!);
     } on Failure catch (e) {
       if (e.code == FailureCode.wrongCode) {
         emit(state.copyWith(errorMessage: null, inProgress: false, wrongCode: true));

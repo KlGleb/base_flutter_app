@@ -1,6 +1,5 @@
 import 'package:checkbox_formfield/checkbox_list_tile_formfield.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +15,14 @@ import 'package:routemaster/routemaster.dart';
 class SignUpForm extends StatelessWidget {
   SignUpForm({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-  final _passwordController = TextEditingController(text: kDebugMode ? '123' : null);
-  final _repeatPasswordController = TextEditingController(text: kDebugMode ? '123' : null);
+  final _passwordController = TextEditingController(/*text: kDebugMode ? '123' : null*/);
+  final _repeatPasswordController = TextEditingController(/*text: kDebugMode ? '123' : null*/);
   final _focusNode = FocusNode();
+  static const emailField = Key('emailField');
+  static const passField = Key('passField');
+  static const pass2Field = Key('pass2Field');
+  static const registerKey = Key('registerKey');
+  static const checkKey = Key('checkKey');
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,8 @@ class SignUpForm extends StatelessWidget {
                     ),
                     const SizedBox(height: 44),
                     TextFormField(
-                      initialValue: kDebugMode ? 'info@gleb.at' : null,
+                      key: emailField,
+                      initialValue: /* kDebugMode ? 'info@gleb.at' :*/ null,
                       decoration: decoration.copyWith(labelText: LocaleKeys.login_emailLabel.tr()),
                       onSaved: (newValue) => bloc.add(SaveUserName(newValue!)),
                       validator: emailValidator(context),
@@ -59,6 +64,7 @@ class SignUpForm extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
+                      key: passField,
                       controller: _passwordController,
                       validator: _passwordValidator(context),
                       onSaved: (newValue) => bloc.add(SavePassword(newValue!)),
@@ -78,6 +84,7 @@ class SignUpForm extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
+                      key: pass2Field,
                       focusNode: _focusNode,
                       controller: _repeatPasswordController,
                       decoration: decoration.copyWith(labelText: LocaleKeys.signUp_repeatPasswordLabel.tr()),
@@ -99,31 +106,34 @@ class SignUpForm extends StatelessWidget {
                         if (!(value ?? false)) return 'Необходимо ваше согласие с условиями';
                         return null;
                       },
-                      title: RichText(
-                        text: TextSpan(
-                          style: captionStyle,
-                          children: [
-                            const TextSpan(text: 'Регистрируясь, я соглашаюсь с '),
-                            TextSpan(
-                              text: 'политикой конфеденциальности ',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Routemaster.of(context).replace('/login');
-                                },
-                              style: linksStyle,
-                              mouseCursor: MaterialStateMouseCursor.clickable,
-                            ),
-                            const TextSpan(text: ' и '),
-                            TextSpan(
-                              text: ' лицензионным соглашением',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Routemaster.of(context).replace('/login');
-                                },
-                              style: linksStyle,
-                              mouseCursor: MaterialStateMouseCursor.clickable,
-                            ),
-                          ],
+                      title: ExcludeSemantics(
+                        child: RichText(
+                          key: checkKey,
+                          text: TextSpan(
+                            style: captionStyle,
+                            children: [
+                              const TextSpan(text: 'Регистрируясь, я соглашаюсь с '),
+                              TextSpan(
+                                text: 'политикой конфеденциальности ',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Routemaster.of(context).replace('/login');
+                                  },
+                                style: linksStyle,
+                                mouseCursor: MaterialStateMouseCursor.clickable,
+                              ),
+                              const TextSpan(text: ' и '),
+                              TextSpan(
+                                text: ' лицензионным соглашением',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Routemaster.of(context).replace('/login');
+                                  },
+                                style: linksStyle,
+                                mouseCursor: MaterialStateMouseCursor.clickable,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -131,6 +141,7 @@ class SignUpForm extends StatelessWidget {
                     ErrorField(message: state.errorMessage),
                     const SizedBox(height: 8.0),
                     ElevatedButton(
+                      key: registerKey,
                       onPressed: state.inProgress
                           ? null
                           : () {

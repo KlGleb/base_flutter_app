@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const homeKey = Key('HomeBottomNavigationBarItem');
+  static const billsKey = Key('BillsBottomNavigationBarItem');
+  static const settingsKey = Key('SettingsBottomNavigationBarItem');
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -23,9 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Главная'),
-          BottomNavigationBarItem(icon: Icon(Icons.attach_money_outlined), label: 'Счета'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Настройки'),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined, key: HomeScreen.homeKey), label: 'Главная'),
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money_outlined, key: HomeScreen.billsKey), label: 'Счета'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined, key: HomeScreen.settingsKey), label: 'Настройки'),
         ],
         currentIndex: pageState.index,
         onTap: (index) {

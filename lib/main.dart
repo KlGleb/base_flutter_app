@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:reviewmagic_flutter/dependencies.dart';
 import 'package:reviewmagic_flutter/features/auth/state_management/auth_bloc.dart';

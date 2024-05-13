@@ -10,40 +10,40 @@ class SharePage extends StatelessWidget {
       children: [
         Text('12 350 ₽', style: theme.displayMedium!.copyWith(color: Theme.of(context).colorScheme.primary)),
         const SizedBox(height: 20),
-        const ListTile(
-          title: Text('Наименование организации'),
-          subtitle: Text('Общество с ограниченной ответственностью «МИР»'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('Наименование организации'),
+          subtitle: const Text('Общество с ограниченной ответственностью «МИР»'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
-        const ListTile(
-          title: Text('Рассчетный счет'),
-          subtitle: Text('40602810206000050025'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('Рассчетный счет'),
+          subtitle: const Text('40602810206000050025'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
-        const ListTile(
-          title: Text('Наименование банка'),
-          subtitle: Text('Уральский банк ПАО Сбербанк г. Екатеринбург'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('Наименование банка'),
+          subtitle: const Text('Уральский банк ПАО Сбербанк г. Екатеринбург'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
-        const ListTile(
-          title: Text('Корреспондентский счет'),
-          subtitle: Text('30101810500000000674'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('Корреспондентский счет'),
+          subtitle: const Text('30101810500000000674'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
-        const ListTile(
-          title: Text('БИК'),
-          subtitle: Text('046577674'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('БИК'),
+          subtitle: const Text('046577674'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
-        const ListTile(
-          title: Text('К оплате, руб.'),
-          subtitle: Text('12350'),
-          trailing: Icon(Icons.copy_outlined),
+        ListTile(
+          title: const Text('К оплате, руб.'),
+          subtitle: const Text('12350'),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.copy_outlined)),
           contentPadding: EdgeInsets.zero,
         ),
       ],

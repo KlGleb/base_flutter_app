@@ -2,6 +2,7 @@
 *.freezed.dart
 *.g.dart
 *.mocks.dart
+*.graphql.dart
 
 # Miscellaneous
 *.class

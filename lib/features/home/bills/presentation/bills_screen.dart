@@ -61,7 +61,7 @@ class BillsPage extends StatelessWidget {
                               ),
                             );
                           }
-                          return const _BillCard(bill: null);
+                          return const BillCard(bill: null);
                         },
                       ),
                     );
@@ -100,7 +100,7 @@ class BillsPage extends StatelessWidget {
                           );
                         }
                         final item = state.bills[index - 1];
-                        return _BillCard(key: ValueKey(item.id), bill: item);
+                        return BillCard(key: ValueKey(item.id), bill: item);
                       },
                     ),
                   );
@@ -112,8 +112,9 @@ class BillsPage extends StatelessWidget {
       );
 }
 
-class _BillCard extends StatelessWidget {
-  const _BillCard({super.key, this.bill});
+@visibleForTesting
+class BillCard extends StatelessWidget {
+  const BillCard({super.key, this.bill});
 
   final BillModel? bill;
 
@@ -135,11 +136,13 @@ class _BillCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                key: const Key('title'),
                 _formatCurrency.format(bill?.amount ?? 0),
                 style: Theme.of(context).textTheme.titleMedium,
               ).shimmerIf(bill == null),
               const SizedBox(height: 4),
               Text(
+                key: const Key('subtitle'),
                 'От ${_formatDate.format(bill?.created ?? DateTime.now())}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ).shimmerIf(bill == null, width: 200),
@@ -148,12 +151,13 @@ class _BillCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
-                      onPressed: bill == null
-                          ? null
-                          : () {
-                              Routemaster.of(context).push('bill');
-                            },
-                      child: const Text('Оплатить')),
+                    onPressed: bill == null
+                        ? null
+                        : () {
+                            Routemaster.of(context).push('bill');
+                          },
+                    child: const Text('Оплатить'),
+                  ),
                 ],
               ),
             ],

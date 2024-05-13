@@ -11,7 +11,8 @@ import 'package:reviewmagic_flutter/features/login/presentation_reset_password_c
 import 'package:reviewmagic_flutter/generated/lang.dart';
 
 class ResetPasswordCodeForm extends StatelessWidget {
-  ResetPasswordCodeForm({Key? key, this.code}) : super(key: key);
+  ResetPasswordCodeForm({Key? key, required this.email, this.code}) : super(key: key);
+  final String email;
   final String? code;
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: kDebugMode ? '123' : null);
@@ -23,7 +24,7 @@ class ResetPasswordCodeForm extends StatelessWidget {
     const decoration = InputDecoration(border: OutlineInputBorder());
 
     return BlocProvider<ResetPasswordCodeBloc>(
-      create: (context) => ResetPasswordCodeBloc(getIt()),
+      create: (context) => ResetPasswordCodeBloc(getIt(), email),
       child: BlocBuilder<ResetPasswordCodeBloc, ResetPasswordCodeState>(
         builder: (context, state) {
           final bloc = context.read<ResetPasswordCodeBloc>();

@@ -1,9 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:reviewmagic_flutter/core/data/credentials_storage.dart';
 import 'package:reviewmagic_flutter/features/auth/state_management/auth_bloc.dart';
+import 'package:reviewmagic_flutter/features/login/data/ds/auth.graphql.dart';
 import 'package:reviewmagic_flutter/features/login/data/ds/login_ds.dart';
-import 'package:reviewmagic_flutter/features/login/data/dtos/login_dto.dart';
-import 'package:reviewmagic_flutter/features/login/data/entities/reset_password_entity.dart';
 import 'package:reviewmagic_flutter/features/login/domain/repositories/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,14 +20,14 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future login(String email, String password) async {
-    final res = await _dataSource.login(LoginDto(email: email, password: password));
-    await _onLoggedIn(res.token);
+    final res = await _dataSource.login(Variables$Query$LogIn(email: email, password: password));
+    await _onLoggedIn(res.auth);
   }
 
   @override
   Future signUp(String email, String password) async {
-    final res = await _dataSource.register(LoginDto(email: email, password: password));
-    await _onLoggedIn(res.token);
+    final res = await _dataSource.register(Variables$Query$SignUp(email: email, password: password));
+    await _onLoggedIn(res.signUp);
   }
 
   @override
@@ -38,12 +37,14 @@ class AuthRepositoryImpl extends AuthRepository {
   Stream<AuthState> get authState => _subject.distinct();
 
   @override
-  Future resetPassword(String email) => _dataSource.sendCodeToEmail(email);
+  Future resetPassword(String email) =>
+      _dataSource.sendCodeToEmail(Variables$Query$SendResetPasswordCode(email: email));
 
   @override
-  Future sendCode(String code, String password) async {
-    final res = await _dataSource.resetPasswordByCode(ResetPasswordEntity(code: code, newPassword: password));
-    await _onLoggedIn(res.token);
+  Future sendCode(String email, String code, String password) async {
+    final res = await _dataSource
+        .resetPasswordByCode(Variables$Mutation$ResetPassword(email: email, code: code, newPassword: password));
+    await _onLoggedIn(res.auth);
   }
 
   Future _onLoggedIn(String token) async {

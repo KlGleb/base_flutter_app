@@ -1,0 +1,15 @@
+query LogIn($email: String!, $password: String!) {
+    auth(email: $email, password: $password)
+}
+
+query SendResetPasswordCode($email: String!) {
+    sendResetPasswordCode(email: $email)
+}
+
+query SignUp($email: String!, $password: String!) {
+    signUp(email: $email, password: $password)
+}
+
+mutation ResetPassword($email: String!, $code: String!, $newPassword: String!){
+    auth(email: $email, code: $code, newPassword: $newPassword)
+}

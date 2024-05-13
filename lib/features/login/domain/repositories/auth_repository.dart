@@ -7,7 +7,7 @@ abstract class AuthRepository {
 
   Future resetPassword(String email);
 
-  Future sendCode(String code, String password);
+  Future sendCode(String email, String code, String password);
 
   Future logOut();
 

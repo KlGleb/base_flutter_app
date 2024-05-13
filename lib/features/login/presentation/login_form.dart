@@ -53,7 +53,7 @@ class LoginForm extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(
-                      initialValue: kDebugMode ? '123' : null,
+                      initialValue: kDebugMode ? '345' : null,
                       decoration: decoration.copyWith(
                         labelText: LocaleKeys.login_passwordLabel.tr(),
                         suffixIcon: IconButton(
@@ -77,7 +77,7 @@ class LoginForm extends StatelessWidget {
                       child: Text(LocaleKeys.login_loginButton.tr()),
                     ),
                     const SizedBox(height: 32),
-                    _SignUpLabel(captionStyle: captionStyle, linksStyle: linksStyle),
+                    SignUpLabel(captionStyle: captionStyle, linksStyle: linksStyle),
                     const SizedBox(height: 16),
                     _ResetPasswordLabel(captionStyle: captionStyle, linksStyle: linksStyle),
                   ],
@@ -134,8 +134,11 @@ class _ResetPasswordLabel extends StatelessWidget {
   }
 }
 
-class _SignUpLabel extends StatelessWidget {
-  const _SignUpLabel({
+@visibleForTesting
+class SignUpLabel extends StatelessWidget {
+  static const findKey = Key('_SignUpLabel');
+
+  const SignUpLabel({
     Key? key,
     required this.captionStyle,
     required this.linksStyle,
@@ -147,6 +150,7 @@ class _SignUpLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      key: findKey,
       text: TextSpan(
         children: [
           TextSpan(
